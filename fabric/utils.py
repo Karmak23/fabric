@@ -358,3 +358,17 @@ def apply_lcwd(path, env):
     if not os.path.isabs(path) and env.lcwd:
         path = os.path.join(env.lcwd, path)
     return path
+
+
+class HostString(str):
+    """
+    A subclass of :class:`str` used to store host strings.
+
+    It adds a :attr:`role` attribute, to be able to retrieve which role the
+    host was selected from.
+    """
+
+    def __new__(self, value, role=None):
+        ret = super(HostString, self).__new__(self, value)
+        ret.role = role
+        return ret
